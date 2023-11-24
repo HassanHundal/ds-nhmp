@@ -1,7 +1,7 @@
 "use client"
 import React,{useState} from "react"
 import axios from "axios"
-import { get } from "http"
+import Link from "next/link"
 
 export default function Home() {
 
@@ -9,10 +9,25 @@ const [user,setUser] =useState("")
 const [pwd,setPwd] =useState("")
 
 //-----------------------save function
+
+const newUser ={
+
+username:user,
+password:pwd
+}
+
+
 const save =()=>{
- axios.post(`/api/saveuser/${user}/${pwd}`).then(
-  alert("data saved")
- )
+  try {
+    
+    axios.post(`/api/saveuser`, newUser).then(
+      alert("data saved")
+     )
+
+  } catch (error) {
+    console.log(error)
+  }
+
 
 }
 
@@ -52,6 +67,13 @@ const getdata =()=>{
        onClick={() => getdata()}
         
         className="border-2 rounded-md  px-4 py-1 bg-purple-900 text-white font-semibold hover:bg-white hover:text-purple-900">getdata</button>
+
+        <Link href='/signup' className="bg-white p-2 m-2 text-bold rounded-md hover:p-3" >
+          Signup
+          </Link>
+          <Link href='/regForm' className="bg-white p-2 m-2 text-bold rounded-md hover:p-3" >
+          Registration
+          </Link>
       </div>
      </div>
     </div>
